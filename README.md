@@ -1,4 +1,4 @@
-# osu-v2-convert
+# Osu Scorev2 Converter
 
 Future Project - WIP
 
