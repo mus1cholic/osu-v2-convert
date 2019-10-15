@@ -1,0 +1,37 @@
+two pointers:
+
+pointer 1 traverses through each entry of compressed replay data (start from after negatives are done)
+pointer 2 traverses through each entry of hitobjects of target map.
+
+main loop (incrementing pointer 1):
+
+continue if no keys are pressed
+
+if some type of key is pressed, record the key that is pressed.
+
+check if circle, slider, or spinner
+
+(for circle) check if hit at wrong position relative to cs, resulting in miss
+
+(for circle) check if hit too early or too late, resulting in miss
+
+(for circle) check when it hit, and update corresponding combo + accuracy
+
+(for slider) check if hit too early or too late, resulting in miss
+
+(for slider) check if hit at wrong position relative to cs, resulting in miss
+
+(for slider) check for sliderticks, somehow????
+
+(for spinner) check if hit too late
+
+(for spinner) check how much is spinned ????
+
+increment pointer 2
+
+
+need to take account for
+notelocking
+hitting too early, resulting in a miss
+hitting too late, resulting in a miss
+circle/slider (slider ticks, slider start circle, slider end circle)/spinner
