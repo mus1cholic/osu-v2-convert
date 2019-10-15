@@ -23,8 +23,19 @@ def main():
     
     print(CircleRadius)
 
-    time = 0
+    #parse .osu file
+    HitObjectsData = []
+    with open('Mike Greene - Bill Nye the Science Guy Theme Song (Chinese Intro) (Monstrata) [Easy].osu') as file:
+        for line in reversed(file.readlines()):#can be made more efficient by reading from reverse
+            if "[HitObjects]" in line:
+                break
+            else:
+                HitObjectsData.append(line)
+    HitObjectsData.reverse()
+    
+
     """
+    time = 0
 
     for obj in play_data:
     #print(str(obj.time_since_previous_action) + " " + str(obj.x)
