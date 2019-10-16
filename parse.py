@@ -79,7 +79,7 @@ def od_to_ms_range(beatmap_od, mods):
                 199 - (beatmap_od * 10) + 0.5]
     
     
-def within_range(x1, y1, x2, y2):
+def coord_within_range(x1, y1, x2, y2):
     #x1 y1 is circle coord
     #x2 y2 is cursor keydown coord
     
