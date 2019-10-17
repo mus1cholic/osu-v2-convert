@@ -28,13 +28,32 @@ def parse_osr(parse, HitObjectsData, beatmap_data):
     
     time_ms = 0
     pointer = 0 #pointer for HitObjectsData
+    key_down_prev = 0 #key_down is same format as obj.keys_pressed
 
     for obj in play_data:
         #temp break
         if time_ms > 1000:
             break
 
-        
+        if obj.keys_pressed != 0:
+            if key_down_prev == 0:#if no keys were pressed previously
+                #key_down_prev = obj.keys_pressed
+
+                key_down_cur = obj.keys_pressed
+                if coord_within_range(HitObjectsData[pointer][],#fix
+                                      HitObjectsData[pointer][],#fix
+                                      obj.x, obj.y,
+                                      CircleSize):
+                    cur_hit = determine_current_hit(time1,
+                                                    time2,
+                                                    beatmap_od,
+                                                    mods)
+                    
+                
+            else:
+                #should only be relevant on sliders, where you have
+                #to hold down the key constantly
+                eof = ""
         
         print(str(obj.time_since_previous_action) + " " + str(obj.x)
               + " " + str(obj.y) + " " + str(obj.keys_pressed))
@@ -43,9 +62,13 @@ def parse_osr(parse, HitObjectsData, beatmap_data):
 
 def get_hitobjects_data():
     #parsing .osu file
+    #TODO: turn hitobjectdata into 2d array, each entry contains
+    #      all information about current hitobject (type, sliderpoints etc...)
+    #TODO: add support for sliderheads, sliderticks, sliderends etc...
+    
     HitObjectsData = []
     with open('Mike Greene - Bill Nye the Science Guy Theme Song (Chinese Intro) (Monstrata) [Easy].osu') as file:
-        for line in reversed(file.readlines()):#can be made more efficient by reading from reverse
+        for line in reversed(file.readlines()):
             if "[HitObjects]" in line:
                 break
             else:
@@ -66,7 +89,7 @@ def determine_current_hit(time1, time2, beatmap_od, mods):
         return "100"
     elif time_difference <= timing_range[2]:
         return "50"
-    else:
+    else:#TODO: update this (note locking)
         return "miss"
 
 def od_to_ms_range(beatmap_od, mods):
@@ -79,7 +102,7 @@ def od_to_ms_range(beatmap_od, mods):
                 199 - (beatmap_od * 10) + 0.5]
     
     
-def coord_within_range(x1, y1, x2, y2):
+def coord_within_range(x1, y1, x2, y2, CircleSize):
     #x1 y1 is circle coord
     #x2 y2 is cursor keydown coord
     
